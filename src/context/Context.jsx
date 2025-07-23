@@ -24,15 +24,17 @@ export const CounterContext = ({ children }) => {
     const [likedCount, setLikedCount] = useState(0);
     const [savedCount, setSavedCount] = useState(0);
 
-  function likedBtn() {
+  function likedBtn(id) {
         let findObj = students.find(item => item.id == id)
         findObj.isLiked = !findObj.isLiked
         setLikedCount(likedCount + 1);
     }
 
 
-    function savedBtn() {
-        setSavedCount(savedCount + 1);
+    function savedBtn(id) {
+      let findObj = students.find(item => item.id == id)
+      findObj.isBasket = !findObj.isBasket
+      setSavedCount(savedCount + 1);
     }
 
     return (
