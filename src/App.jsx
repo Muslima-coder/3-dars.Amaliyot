@@ -1,18 +1,27 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { Context } from "./context/Context"
 import { Toaster } from "react-hot-toast"
 
 const App = () => {
   const { students, savedList, savedBtn, sListBtn, lListBtn, likedList, likedBtn } = useContext(Context)
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <>
     <Toaster position="top-center" reverseOrder={false}/>
-    <div className="containers p-5">
+    <div className="containers p-5 py-7 ">
       <h1 className="font-bold text-[30px]  text-center text-white ">94-guruh a'zolari</h1>
       <div className="py-[30px] flex justify-center gap-[50px] items-center">
-        <button onClick={() => sListBtn()} className="cursor-pointer hover:scale-[1.05] duration-300  w-[100px] p-2 text-white bg-violet-700 font-medium rounded-md ">Saved:({savedList.length})</button>
-        <button onClick={() => lListBtn()} className="cursor-pointer hover:scale-[1.05] duration-300  w-[100px] p-2 text-white bg-orange-700 font-medium rounded-md ">liked: ({likedList.length})</button>
+        <button onClick={() => sListBtn()} className="shadow-md shadow-violet-900  cursor-pointer hover:scale-[1.05] duration-300  w-[100px] p-2 text-white bg-violet-700 font-medium rounded-md ">Saved:({savedList.length})</button>
+        <button onClick={() => lListBtn()} className="shadow-md shadow-orange-900 cursor-pointer hover:scale-[1.05] duration-300  w-[100px] p-2 text-white bg-orange-700 font-medium rounded-md ">liked: ({likedList.length})</button>
+        <button  onClick={() => setMenuOpen(true)} className="flex items-center justify-center gap-[3px] hover:scale-[1.05] duration-300 w-[130px] rounded-md cursor-pointer py-2 bg-gray-500 shadow-lg shadow-gray-700 text-white font-medium text-[16px] ">
+          Create
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-add" viewBox="0 0 16 16">
+            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+            <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+          </svg>
+        </button>
       </div>
       <ul className="flex flex-wrap justify-center gap-[30px] items-center">
         {students.map(item =>
@@ -40,8 +49,25 @@ const App = () => {
         )}
       </ul>
     </div>
+    {/* Modal */}
+        <div  className={`${menuOpen ? "duration-300 flex items-center justify-center fixed top-0 bottom-0 left-0 right-0  backdrop-blur-[5px] z-100" : "hidden"}`}>
+        <div className=" p-[20px] bg-slate-600 rounded-md space-y-4 w-[300px] text-center">
+          <h2 className="text-[24px] font-bold text-white">Add Student</h2>
+          <input className="w-full p-2 border-[1.5px] border-slate-400 rounded-[10px] outline-none focus:shadow-md shadow-slate-200 text-white" required type="text" placeholder="name" />
+          <input className="w-full p-2 border-[1.5px] border-slate-400 rounded-[10px] outline-none focus:shadow-md shadow-slate-200 text-white" required type="text" placeholder="surname" />
+          <input className="w-full p-2 border-[1.5px] border-slate-400 rounded-[10px] outline-none focus:shadow-md shadow-slate-200 text-white" required type="number" placeholder="age" />
+          <input className="w-full p-2 border-[1.5px] border-slate-400 rounded-[10px] outline-none focus:shadow-md shadow-slate-200 text-white" required type="text" placeholder="region" />
+          <input className="w-full p-2 border-[1.5px] border-slate-400 rounded-[10px] outline-none focus:shadow-md shadow-slate-200 text-white" required type="text" placeholder="image URL" />
+          <div className="flex justify-between">
+            <button onClick={() => setMenuOpen(false)} className="duration-300 cursor-pointer  bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Cancel</button>
+            <button onClick={() => addStudentsBtn() } className="duration-300 cursor-pointer bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Add</button>
+          </div>
+        </div>
+      </div>
+
     </>
   )
 }
 
 export default App
+
