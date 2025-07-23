@@ -6,13 +6,13 @@ const App = () => {
 
   return (
     <>
-    <div className="p-20">
+    <div className="containers p-5">
       <h1 className="font-bold text-[30px]  text-center text-white ">94-guruh a'zolari</h1>
       <div className="py-[30px] flex justify-center gap-[50px] items-center">
         <button onClick={() => sListBtn()} className="cursor-pointer hover:scale-[1.05] duration-300  w-[100px] p-2 text-white bg-violet-700 font-medium rounded-md ">Saved:({savedList.length})</button>
         <button onClick={() => lListBtn()} className="cursor-pointer hover:scale-[1.05] duration-300  w-[100px] p-2 text-white bg-orange-700 font-medium rounded-md ">liked: ({likedList.length})</button>
       </div>
-      <ul className="flex flex-wrap justify-center gap-[90px] items-center">
+      <ul className="flex flex-wrap justify-center gap-[30px] items-center">
         {students.map(item =>
           <li key={item.id} className="w-[330px] shadow-lg shadow-blue-700 p-5 rounded-md ">
             <img className="mx-auto w-[300px] h-[250px] rounded-lg " src={item.img} alt="img" />
