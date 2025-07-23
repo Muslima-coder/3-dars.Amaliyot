@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-  const students = [
+  const list = [
     {id:1, name:"Jamshid", surname:"Akramov", age:20, region:"Qoqon", isLiked:false, isBasket:false,  img:"https://picsum.photos/id/1/800/800"},
     {id:2, name:"Hamroz", surname:"Nuriddinov", age:19, region:"Samarqand", isLiked:false, isBasket:false, img:"https://picsum.photos/id/2/800/800"},
     {id:3, name:"Sarvar", surname:"A'zamov", age:18, region:"Surxondaryo", isLiked:false, isBasket:false,  img:"https://picsum.photos/id/3/800/800"},
@@ -21,24 +21,40 @@ import { createContext, useState } from "react";
 export const Context = createContext();
 
 export const CounterContext = ({ children }) => {
-    const [likedCount, setLikedCount] = useState(0);
-    const [savedCount, setSavedCount] = useState(0);
+    const [savedList, setSavedList] = useState([]);
+     const [likedList, setLikedList] = useState([]);
+    const [students, setStudents] = useState(list)
 
-  function likedBtn(id) {
-        let findObj = students.find(item => item.id == id)
-        findObj.isLiked = !findObj.isLiked
-        setLikedCount(likedCount + 1);
+
+
+    function savedBtn(item) {
+      setSavedList([...savedList, item])
     }
 
-
-    function savedBtn(id) {
-      let findObj = students.find(item => item.id == id)
-      findObj.isBasket = !findObj.isBasket
-      setSavedCount(savedCount + 1);
+    function sListBtn(){
+      if(students.length == savedList.length){
+        setStudents(list)
+      }
+      else{
+        setStudents(savedList)
+      }
     }
 
-    return (
-        <Context.Provider value={{ likedBtn, savedBtn, likedCount, savedCount, students }}>
+    function likedBtn(item){
+      setLikedList([...likedList, item])
+    }
+     function lListBtn(){
+      if(students.length == likedList.length){
+        setStudents(list)
+      }
+      else{
+        setStudents(likedList)
+      }
+    }
+    
+
+      return (
+        <Context.Provider value={{ students, savedList, savedBtn, sListBtn, lListBtn, likedList, likedBtn }}>
             {children}
         </Context.Provider>
     );
