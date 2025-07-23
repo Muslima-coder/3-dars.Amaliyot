@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import toast from "react-hot-toast";
 
   const list = [
     {id:1, name:"Jamshid", surname:"Akramov", age:20, region:"Qoqon", isLiked:false, isBasket:false,  img:"https://picsum.photos/id/1/800/800"},
@@ -29,6 +30,7 @@ export const CounterContext = ({ children }) => {
 
     function savedBtn(item) {
       setSavedList([...savedList, item])
+      toast.success("Student saved!")
     }
 
     function sListBtn(){
@@ -42,6 +44,7 @@ export const CounterContext = ({ children }) => {
 
     function likedBtn(item){
       setLikedList([...likedList, item])
+      toast.success("Student liked!")
     }
      function lListBtn(){
       if(students.length == likedList.length){

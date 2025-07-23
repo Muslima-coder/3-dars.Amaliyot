@@ -1,11 +1,13 @@
 import { useContext } from "react"
 import { Context } from "./context/Context"
+import { Toaster } from "react-hot-toast"
 
 const App = () => {
   const { students, savedList, savedBtn, sListBtn, lListBtn, likedList, likedBtn } = useContext(Context)
 
   return (
     <>
+    <Toaster position="top-center" reverseOrder={false}/>
     <div className="containers p-5">
       <h1 className="font-bold text-[30px]  text-center text-white ">94-guruh a'zolari</h1>
       <div className="py-[30px] flex justify-center gap-[50px] items-center">
