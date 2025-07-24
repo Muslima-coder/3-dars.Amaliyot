@@ -26,39 +26,51 @@ export const CounterContext = ({ children }) => {
      const [likedList, setLikedList] = useState([]);
     const [students, setStudents] = useState(list)
 
-
-
     //Save btn
     function savedBtn(item) {
-      setSavedList([...savedList, item])
-      toast.success("Student saved!")
+    if (!savedList.find(user => user.id === item.id)) {
+      setSavedList([...savedList, item]);
+      toast.success("Student saved!");
+    }
+     else {
+      toast.error("Already saved!");
+    }
     }
 
     function sListBtn(){
-      if(students.length == savedList.length){
-        setStudents(list)
-      }
-      else{
-        setStudents(savedList)
-      }
+       setStudents(savedList)
     }
+
+    //Stop actions btn
+    function stopActionsBtn() {
+    setStudents(list);       
+    setSavedList([]);   
+    setLikedList([]);   
+    toast.success("All filters cleared!");
+    }
+
 
     //Like btn
-    function likedBtn(item){
-      setLikedList([...likedList, item])
-      toast.success("Student liked!")
+    function likedBtn(item) {
+    if (!likedList.find(user => user.id === item.id)) {
+      setLikedList([...likedList, item]);
+      toast.success("Student liked!");
     }
+     else {
+      toast.error("Already liked!");
+    }
+  }
      function lListBtn(){
-      if(students.length == likedList.length){
-        setStudents(list)
-      }
-      else{
-        setStudents(likedList)
-      }
+      setStudents(likedList)
     }
 
+    function addStudents(data){
+      setStudents([...students, data])
+    }
+
+
       return (
-        <Context.Provider value={{ students, savedList, savedBtn, sListBtn, lListBtn, likedList, likedBtn }}>
+        <Context.Provider value={{addStudents, students, savedList, savedBtn, sListBtn, lListBtn, likedList, likedBtn, stopActionsBtn }}>
             {children}
         </Context.Provider>
     );
