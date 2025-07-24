@@ -25,7 +25,9 @@ import toast from "react-hot-toast";
         const [savedList, setSavedList] = useState([]);
         const [likedList, setLikedList] = useState([]);
         const localData = JSON.parse(localStorage.getItem("students"));
-    const [students, setStudents] = useState(localData || list);
+        const [students, setStudents] = useState(localData || list);
+       const [searchValue, setsearchValue] = useState("");
+
 
 
     //Save btn
@@ -44,13 +46,13 @@ import toast from "react-hot-toast";
     }
 
     //Stop actions btn
-  function stopActionsBtn() {
-  setStudents(list);       
-  setSavedList([]);   
-  setLikedList([]);   
-  localStorage.setItem("students", JSON.stringify(list)); 
-  toast.success("All filters cleared!");
-}
+      function stopActionsBtn() {
+      setStudents(list);       
+      setSavedList([]);   
+      setLikedList([]);   
+      localStorage.setItem("students", JSON.stringify(list)); 
+      toast.success("All filters cleared!");
+    }
 
 
 
@@ -75,10 +77,35 @@ import toast from "react-hot-toast";
   localStorage.setItem("students", JSON.stringify(updated));
 }
 
+  //search
+  const handleSearch = (e) => {
+    const value = e.target.value.toLowerCase();
+    setsearchValue(value);
+
+    const filtered = list.filter((item) =>
+      item.name.toLowerCase().includes(value) ||
+      item.surname.toLowerCase().includes(value) ||
+      item.age.toString().includes(value) ||
+      item.region.toLowerCase().includes(value)
+    );
+
+    setStudents(filtered);
+  };
+
+  //delete btn
+  function deleteBtn(id) {
+    const deleted = [...students];
+    const index = deleted.findIndex(user => user.id === id);
+    
+      deleted.splice(index, 1);
+      setStudents(deleted);
+      toast.success("Student deleted!");
+  }
+
 
 
       return (
-        <Context.Provider value={{addStudents, students, savedList, savedBtn, sListBtn, lListBtn, likedList, likedBtn, stopActionsBtn }}>
+        <Context.Provider value={{addStudents, students, savedList, savedBtn, sListBtn, lListBtn, likedList, likedBtn, stopActionsBtn, handleSearch, searchValue, deleteBtn }}>
             {children}
         </Context.Provider>
     );
