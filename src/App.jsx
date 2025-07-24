@@ -5,7 +5,7 @@ import Teachers from "./pages/Teachers";
 const App = () => {
   return (
     <>
-      <nav className="flex gap-5 p-4 bg-black text-white">
+      <nav className=" flex text-[24px] font-semibold cursor-pointer items-center gap-5 p-4 bg-black text-white">
         <NavLink to="/students">Students</NavLink>
         <NavLink to="/teachers">Teachers</NavLink>
       </nav>
