@@ -19,12 +19,14 @@ import toast from "react-hot-toast";
     {id:15, name:"Mirzohamdam", surname:"To'lqinov", age:19, region:"Toshkent",  img:"https://picsum.photos/id/15/800/800"},
   ]
 
-export const Context = createContext();
+    export const Context = createContext();
 
-export const CounterContext = ({ children }) => {
-    const [savedList, setSavedList] = useState([]);
-     const [likedList, setLikedList] = useState([]);
-    const [students, setStudents] = useState(list)
+    export const CounterContext = ({ children }) => {
+        const [savedList, setSavedList] = useState([]);
+        const [likedList, setLikedList] = useState([]);
+        const localData = JSON.parse(localStorage.getItem("students"));
+    const [students, setStudents] = useState(localData || list);
+
 
     //Save btn
     function savedBtn(item) {
@@ -42,12 +44,14 @@ export const CounterContext = ({ children }) => {
     }
 
     //Stop actions btn
-    function stopActionsBtn() {
-    setStudents(list);       
-    setSavedList([]);   
-    setLikedList([]);   
-    toast.success("All filters cleared!");
-    }
+  function stopActionsBtn() {
+  setStudents(list);       
+  setSavedList([]);   
+  setLikedList([]);   
+  localStorage.setItem("students", JSON.stringify(list)); 
+  toast.success("All filters cleared!");
+}
+
 
 
     //Like btn
@@ -64,9 +68,13 @@ export const CounterContext = ({ children }) => {
       setStudents(likedList)
     }
 
-    function addStudents(data){
-      setStudents([...students, data])
-    }
+    //add btn
+   function addStudents(data){
+  const updated = [...students, data];
+  setStudents(updated);
+  localStorage.setItem("students", JSON.stringify(updated));
+}
+
 
 
       return (
