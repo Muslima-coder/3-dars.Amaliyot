@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import toast from "react-hot-toast";
 
+ 
   const list = [
     {id:1, name:"Jamshid", surname:"Akramov", age:20, region:"Qoqon",  img:"https://picsum.photos/id/1/800/800"},
     {id:2, name:"Hamroz", surname:"Nuriddinov", age:19, region:"Samarqand", img:"https://picsum.photos/id/2/800/800"},
@@ -53,8 +54,6 @@ import toast from "react-hot-toast";
       localStorage.setItem("students", JSON.stringify(list)); 
       toast.success("All filters cleared!");
     }
-
-
 
     //Like btn
     function likedBtn(item) {
